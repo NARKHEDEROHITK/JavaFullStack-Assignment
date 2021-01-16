@@ -1,0 +1,75 @@
+Simple querries
+
+1.select * from jobs where min_salary > 10000;
+2. select first_name from employees where hire_date between '2002-01-01' and '2005-01-01';
+3.select first_name, job_id from employees where job_id in ('IT_PROG','SA_MAN');
+4.select first_name,salary,commission_pct,hire_date from employees where salary < 10000;
+5. select job_id,job_title,(max_salary - min_salary) from jobs where max_salary between 10000 and 20000;
+6.select first_name,last_name from employees where first_name like 'S%';
+7.select * from jobs order by job_title desc;
+
+join querries
+
+1. select * from employees where commission_pct is null and  department_id = 30 and salary between 5000 and 10000;
+2. select job_title,employee_id,DATEDIFF(end_date,start_date) from jobs natural join job_history;
+3.select first_name,department_name from employees,jobs,departments where job_title like '%Manager%' and employees.department_id=departments.department_id and employees.job_id=jobs.job_id;
+4. select country_name,city,department_name from locations,departments,countries where countries.country_id=locations.country_id and departments.location_id = locations.location_id;
+5. select first_name,country_name from departments as dept,locations as loc , employees as emp , countries as con where emp.department_id=dept.department_id and loc.location_id=dept.location_id and loc.country_id=con.country_id;
+
+functions
+1. select * from employees where hire_date like '_____05___';
+2. select first_name,round(salary) from employees;
+3.
+4. select first_name,DATEDIFF(curdate(),hire_date)/365 as experience_in_years from employees;
+5.select LENGTH(first_name) from employees where last_name like '___%b%';
+6.
+7.select * from employees where YEAR(hire_date)=1995;
+8. select DATEDIFF(curdate(),'1995-01-01');
+9.
+
+Agregate functions
+
+1.
+2. select count(*) from employees where DAY(hire_date) > 15;
+
+group by
+3.select con.country_id,count(city) from departments as dept,locations as loc , employees as emp , countries as con where emp.department_id=dept.department_id and loc.location_id=dept.location_id and loc.country_id=con.country_id group by country_id;
+4.select avg(salary),department_id from departments natural join employees where commission_pct is not null group by department_id;
+5.select employees.job_id,sum(salary),(max(salary)-min(salary)) as diifrencr_btn_salaries,count(*) from jobs natural join employees group by job_id;
+6. select employees.job_id , avg(salary) from employees,jobs where jobs.job_id=employees.job_id group by job_id having avg(salary)>10000;
+7. select department_id,department_name , count(*) from departments natural join employees where commission_pct is not null  group by department_id having count(*) > 5;
+8.select department_id,count(*) from departments natural join employees group by department_id;
+10.
+
+
+
+
+DML 
+
+1. update employees set salary = 8000 where employee_id=115 and salary < 6000;
+2.insert into employees(employee_id,last_name,email,hire_date,job_id) values(4444,'Rohit','rohit@gmail.com','2020-12-29','AD_VP')
+3. delete from departments where department_id=20;
+4.update employees set job_id = 'IT_PROG' where department_id=10 and job_id not like 'IT%';
+5. insert into departments values(280,'Product',120,1200);
+6. select job_title,DATEDIFF(end_date,start_date) as days , employee_id,department_id from job_history natural join jobs;
+
+DDL with constaints
+
+1. create table customer(cust_id int primary key,first_name varchar(20) not null,last_name varchar(20),age int check(age>21),mobile varchar(10) unique);
+2. create table branch(branch_id int primary key,branch_name varchar(20) not null,city varchar(20) not null);
+3. create table account(account_no int primary key , opening_balence float check(opening_balence > 5000) , type_of_account enum('saving','current'),cust_id int , branch_id int, foreign key (cust_id) references customer(cust_id),foreign key (branch_id) references branch(branch_id));
+4.create table transaction(transsaction_id int primary key,transaction_date varchar(20),medium_of_transaction varchar(20),transaction_amount float);
+5. create table loan(loan_id int primary key , loan_amount float check(loan_amount > 0),cust_id int,branch_id int,foreign key (cust_id) references customer (cust_id), foreign key (branch_id) references branch(branch_id));
+
+
+
+subquerries
+
+1.select * from departments where department_id in (select department_id from employees where first_name like 'John');
+2.
+3. select country_name,city,count(department_id) from countries,locations,departments where departments.location_id=locations.location_id and locations.country_id=countries.country_id and department_id in (select count(employee_id) from departments natural join employees where employee_id > 5 group by department_id);
+4.
+5.
+6.
+7.select employee_id,first_name,last_name,max(salary) from employees natural join departments group by department_id;
+8. select Max(salary)from employeeswhere Salary not in(select Max(salary)from employees where Salary not in(select Max(salary)from employees));
