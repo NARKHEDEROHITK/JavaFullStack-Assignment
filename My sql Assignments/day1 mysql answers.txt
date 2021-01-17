@@ -19,7 +19,7 @@ join querries
 functions
 1. select * from employees where hire_date like '_____05___';
 2. select first_name,round(salary) from employees;
-3.
+3.select first_name , hire_date,LAST_DAY(hire_date) from employees;
 4. select first_name,DATEDIFF(curdate(),hire_date)/365 as experience_in_years from employees;
 5.select LENGTH(first_name) from employees where last_name like '___%b%';
 6.
@@ -29,7 +29,7 @@ functions
 
 Agregate functions
 
-1.
+1.select employee_id , end_date from job_history;
 2. select count(*) from employees where DAY(hire_date) > 15;
 
 group by
@@ -66,10 +66,10 @@ DDL with constaints
 subquerries
 
 1.select * from departments where department_id in (select department_id from employees where first_name like 'John');
-2.
-3. select country_name,city,count(department_id) from countries,locations,departments where departments.location_id=locations.location_id and locations.country_id=countries.country_id and department_id in (select count(employee_id) from departments natural join employees where employee_id > 5 group by department_id);
-4.
-5.
-6.
+2. select * from employees where employee_id not in (select employee_id from job_history);
+3. select Job_title,avg(salary) from employees,job_history,jobs where employees.employee_id=job_history.employee_id and job_history.job_id = jobs.job_id group by job_title;
+4.select country_name,city,count(department_id) from countries,locations,departments where departments.location_id=locations.location_id and locations.country_id=countries.country_id and department_id in (select count(employee_id) from departments natural join employees group by department_id having count(employee_id > 5));
+5.select emp2.manager_id,count(emp1.employee_id) from employees as emp1 ,employees as emp2 where emp1.employee_id = emp2.manager_id group by manager_id having count(emp1.employee_id) > 5;
+6. select employee_id,job_title from employees natural join jobs where employee_id in (select employee_id from job_history natural join jobs where job_title like 'Programmer') ;
 7.select employee_id,first_name,last_name,max(salary) from employees natural join departments group by department_id;
 8. select Max(salary)from employeeswhere Salary not in(select Max(salary)from employees where Salary not in(select Max(salary)from employees));
