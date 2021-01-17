@@ -120,7 +120,7 @@ class Relations{
 		mg.readMgr();
 		pg.readPgr();
 		mg.disMgr();
-		mg.disMgr();
+		pg.disPgr();
 		
 	}
 }
