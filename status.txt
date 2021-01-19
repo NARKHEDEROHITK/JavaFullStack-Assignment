@@ -1,2 +1,2 @@
 mysql assignments completed
-java assignments completed
+java mini bank aplication assignment is pending
