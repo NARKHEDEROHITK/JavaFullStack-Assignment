@@ -1,2 +1,10 @@
-mysql assignments completed
-java mini bank aplication assignment is pending
+mysql assignments => completed
+
+java Assignments
+java assignments 1 (Exam) => completed
+java assignments 2 (Emp) => completed
+java assignments 3 (EmpMain) => completed
+java assignments 4 (Relations) => completed
+java assignments 5 (StudentTest) => completed
+java assignments 6 (MyBank) => Pending
+java assignments 7 (SortingNames) => Pending
