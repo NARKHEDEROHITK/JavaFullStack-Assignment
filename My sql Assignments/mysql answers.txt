@@ -63,7 +63,7 @@ DDL with constaints
 
 
 
-subquerries
+subquerries.
 
 1.select * from departments where department_id in (select department_id from employees where first_name like 'John');
 2. select * from employees where employee_id not in (select employee_id from job_history);
