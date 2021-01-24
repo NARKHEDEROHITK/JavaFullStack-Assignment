@@ -22,10 +22,10 @@ functions
 3.select first_name , hire_date,LAST_DAY(hire_date) from employees;
 4. select first_name,DATEDIFF(curdate(),hire_date)/365 as experience_in_years from employees;
 5.select LENGTH(first_name) from employees where last_name like '___%b%';
-6.
+6.select UPPER(first_name),LOWER(email) from employees where UPPER(first_name)=UPPER(email);
 7.select * from employees where YEAR(hire_date)=1995;
 8. select DATEDIFF(curdate(),'1995-01-01');
-9.
+9.select date_format(hire_date,'MM'),count(*) from employees where date_format(hire_date,'YYYY')=date_format(curdate(),'YYYY') group by date_format(hire_date,'MM');
 
 Agregate functions
 
@@ -37,9 +37,9 @@ group by
 4.select avg(salary),department_id from departments natural join employees where commission_pct is not null group by department_id;
 5.select employees.job_id,sum(salary),(max(salary)-min(salary)) as diifrencr_btn_salaries,count(*) from jobs natural join employees group by job_id;
 6. select employees.job_id , avg(salary) from employees,jobs where jobs.job_id=employees.job_id group by job_id having avg(salary)>10000;
-7. select department_id,department_name , count(*) from departments natural join employees where commission_pct is not null  group by department_id having count(*) > 5;
-8.select department_id,count(*) from departments natural join employees group by department_id;
-10.
+7. select YEAR(hire_date),count(employee_id) from employees group by YEAR(HIRE_date) having count(employee_id)>10;
+8.select department_id,department_name , count(*) from departments natural join employees where commission_pct is not null  group by department_id having count(*) > 5;
+9.select department_id,count(*) from departments natural join employees group by department_id;
 
 
 
